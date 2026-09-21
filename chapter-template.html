@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is Psychology? - Psychology Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Psychology Hub</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="class-11.html">Class 11</a></li>
+      <li><a href="class-12.html">Class 12</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+
+  <section class="chapter-header">
+    <p class="breadcrumb"><a href="class-11.html">Class 11</a> / Chapter 1</p>
+    <h1>What is Psychology?</h1>
+  </section>
+
+  <section class="chapter-summary">
+  <h2>About This Chapter</h2>
+  <p>
+    Psychology is the scientific study of behavior and mental processes.
+    This chapter introduces psychology as a discipline — its history,
+    major branches, and how psychologists study human behavior.
+  </p>
+  <p class="teaser-note">
+    Want the full summary, all key terms, and exam-ready notes? Get the complete chapter PDF below.
+  </p>
+</section>
+<section class="notes-promo">
+  <div class="notes-promo-card">
+    <h3>📄 Full Chapter Notes — ₹49</h3>
+    <p>Everything you need for exams, in one clean PDF.</p>
+    <ul class="notes-features">
+      <li>Complete chapter summary, explained simply</li>
+      <li>All key terms and definitions</li>
+      <li>Important diagrams and mnemonics</li>
+      <li>Previous year questions with mark-wise answers</li>
+    </ul>
+    <a href="#" class="btn btn-primary">Buy Now — ₹49</a>
+  </div>
+</section>
+<section class="quiz-section" id="quiz">
+  <h2>Test Yourself — Free Quiz</h2>
+  <p class="quiz-intro">3 quick questions to check your understanding.</p>
+
+  <div class="quiz-container" id="quiz-container">
+
+    <div class="quiz-question" data-question="1">
+      <p class="question-text">1. Psychology is best defined as the scientific study of:</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="q1" value="wrong"> Only the brain's biology</label>
+        <label class="option"><input type="radio" name="q1" value="correct"> Behavior and mental processes</label>
+        <label class="option"><input type="radio" name="q1" value="wrong"> Only mental illness</label>
+        <label class="option"><input type="radio" name="q1" value="wrong"> Only dreams and sleep</label>
+      </div>
+    </div>
+
+    <div class="quiz-question" data-question="2">
+      <p class="question-text">2. "Introspection" means:</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="q2" value="wrong"> Studying other people's behavior</label>
+        <label class="option"><input type="radio" name="q2" value="correct"> Looking inward at one's own thoughts and feelings</label>
+        <label class="option"><input type="radio" name="q2" value="wrong"> Conducting a lab experiment</label>
+        <label class="option"><input type="radio" name="q2" value="wrong"> Measuring brain activity</label>
+      </div>
+    </div>
+
+    <div class="quiz-question" data-question="3">
+      <p class="question-text">3. Which of these is an example of "behavior"?</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="q3" value="wrong"> Feeling nervous silently</label>
+        <label class="option"><input type="radio" name="q3" value="correct"> Smiling when greeted</label>
+        <label class="option"><input type="radio" name="q3" value="wrong"> A private thought</label>
+        <label class="option"><input type="radio" name="q3" value="wrong"> A memory from childhood</label>
+      </div>
+    </div>
+
+  </div>
+
+  <button id="submit-quiz" class="btn btn-primary">Submit Quiz</button>
+
+  <div id="quiz-result" class="quiz-result"></div>
+
+</section>
+<script>
+  document.getElementById('submit-quiz').addEventListener('click', function() {
+    
+    const questions = document.querySelectorAll('.quiz-question');
+    let score = 0;
+    let totalQuestions = questions.length;
+
+    questions.forEach(function(question) {
+      const selected = question.querySelector('input[type="radio"]:checked');
+      if (selected && selected.value === 'correct') {
+        score++;
+      }
+    });
+
+    // Score ke hisaab se feedback message decide karo
+    let feedback = "";
+    if (score === totalQuestions) {
+      feedback = "Perfect score! You know this chapter well.";
+    } else if (score >= totalQuestions / 2) {
+      feedback = "Good effort! Review the topics you missed and try again.";
+    } else {
+      feedback = "No worries — this is just practice. Read the chapter again and give it another shot.";
+    }
+
+    const resultDiv = document.getElementById('quiz-result');
+    resultDiv.innerHTML = `You scored ${score} out of ${totalQuestions}. ${feedback}`;
+    resultDiv.style.color = '#0F766E';
+
+  });
+</script>
+
+</body>
+</html>
