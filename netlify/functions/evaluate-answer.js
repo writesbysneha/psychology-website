@@ -37,7 +37,16 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
       }
     );
 
-    const data = await response.json();
+       const data = await response.json();
+    
+    // TEMPORARY DEBUG - Gemini ka asli response dekhne ke liye
+    if (!data.candidates) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "GEMINI SAYS: " + JSON.stringify(data) })
+      };
+    }
+    
     let aiText = data.candidates[0].content.parts[0].text;
 
     // AI kabhi-kabhi ```json wrap kar deta hai, use hata do
