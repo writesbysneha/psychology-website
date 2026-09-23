@@ -462,3 +462,79 @@ p {
   font-size: 1.1rem;
   font-weight: bold;
 }
+.ai-evaluator {
+  max-width: 800px;
+  margin: 0 auto 80px auto;
+  padding: 0 20px;
+}
+
+.ai-evaluator h2 {
+  color: #0F766E;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.evaluator-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-top: 20px;
+}
+
+.eval-question {
+  font-weight: bold;
+  color: #1F2937;
+  margin-bottom: 14px;
+}
+
+#student-answer {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #E5E1D8;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.98rem;
+  color: #374151;
+  resize: vertical;
+}
+
+#student-answer:focus {
+  outline: none;
+  border-color: #0F766E;
+}
+
+#submit-answer {
+  margin-top: 16px;
+}
+
+.eval-loading {
+  margin-top: 16px;
+  color: #6B7280;
+  font-style: italic;
+}
+
+.eval-result {
+  margin-top: 20px;
+  background-color: #F0FDFA;
+  border-left: 4px solid #0F766E;
+  padding: 16px 20px;
+  border-radius: 6px;
+}
+
+.eval-result .eval-score {
+  font-weight: bold;
+  color: #0F766E;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.eval-result .eval-feedback {
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.eval-result .eval-missed {
+  color: #6B7280;
+  font-size: 0.95rem;
+}

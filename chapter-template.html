@@ -90,6 +90,24 @@
   <div id="quiz-result" class="quiz-result"></div>
 
 </section>
+<section class="ai-evaluator">
+  <h2>Practice with AI Feedback</h2>
+  <p class="quiz-intro">Write your answer below and get instant, personalized feedback.</p>
+
+  <div class="evaluator-card">
+    <p class="eval-question">Q: Explain what psychology means as a scientific discipline. (5 marks)</p>
+    
+    <textarea id="student-answer" placeholder="Type your answer here..." rows="6"></textarea>
+    
+    <button id="submit-answer" class="btn btn-primary">Get AI Feedback</button>
+    
+    <div id="eval-loading" class="eval-loading" style="display: none;">
+      Checking your answer...
+    </div>
+
+    <div id="eval-result" class="eval-result" style="display: none;"></div>
+  </div>
+</section>
 <script>
   document.getElementById('submit-quiz').addEventListener('click', function() {
     
@@ -117,6 +135,52 @@
     const resultDiv = document.getElementById('quiz-result');
     resultDiv.innerHTML = `You scored ${score} out of ${totalQuestions}. ${feedback}`;
     resultDiv.style.color = '#0F766E';
+
+  });
+</script>
+<script>
+  document.getElementById('submit-answer').addEventListener('click', async function() {
+    
+    const answer = document.getElementById('student-answer').value;
+
+    if (answer.trim() === "") {
+      alert("Please write an answer first!");
+      return;
+    }
+
+    const loadingDiv = document.getElementById('eval-loading');
+    const resultDiv = document.getElementById('eval-result');
+
+    // Loading message dikhao, purana result chhupao
+    loadingDiv.style.display = "block";
+    resultDiv.style.display = "none";
+
+    try {
+      const response = await fetch('/.netlify/functions/evaluate-answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: "Explain what psychology means as a scientific discipline. (5 marks)",
+          studentAnswer: answer
+        })
+      });
+
+      const data = await response.json();
+
+      loadingDiv.style.display = "none";
+      resultDiv.style.display = "block";
+
+      resultDiv.innerHTML = `
+        <div class="eval-score">Score: ${data.score} / 5</div>
+        <div class="eval-feedback">${data.feedback}</div>
+        <div class="eval-missed"><strong>What you could add:</strong> ${data.missedPoints}</div>
+      `;
+
+    } catch (error) {
+      loadingDiv.style.display = "none";
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = "Something went wrong. Please try again in a moment.";
+    }
 
   });
 </script>
