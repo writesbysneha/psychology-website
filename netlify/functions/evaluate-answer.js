@@ -1,6 +1,5 @@
 exports.handler = async function(event) {
 
-  // Sirf POST requests allow karo
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -27,7 +26,7 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
 }`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,19 +36,16 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
       }
     );
 
-       const data = await response.json();
-    
-    // TEMPORARY DEBUG - Gemini ka asli response dekhne ke liye
+    const data = await response.json();
+
     if (!data.candidates) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: "GEMINI SAYS: " + JSON.stringify(data) })
+        body: JSON.stringify({ error: "AI service error. Please try again." })
       };
     }
-    
-    let aiText = data.candidates[0].content.parts[0].text;
 
-    // AI kabhi-kabhi ```json wrap kar deta hai, use hata do
+    let aiText = data.candidates[0].content.parts[0].text;
     aiText = aiText.replace(/```json|```/g, "").trim();
 
     const result = JSON.parse(aiText);
@@ -59,10 +55,10 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
       body: JSON.stringify(result)
     };
 
-    } catch (error) {
+  } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "DEBUG: " + error.message })
+      body: JSON.stringify({ error: "Something went wrong. Please try again." })
     };
   }
 };
