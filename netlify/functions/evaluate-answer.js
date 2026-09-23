@@ -50,10 +50,10 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
       body: JSON.stringify(result)
     };
 
-  } catch (error) {
+    } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Something went wrong. Please try again." })
+      body: JSON.stringify({ error: "DEBUG: " + error.message })
     };
   }
 };
