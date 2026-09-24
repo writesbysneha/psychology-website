@@ -38,10 +38,10 @@ Evaluate this answer and respond ONLY in this exact JSON format, nothing else:
 
     const data = await response.json();
 
-        if (!data.candidates) {
+           if (!data.candidates) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: "DEBUG: " + JSON.stringify(data) })
+        body: JSON.stringify({ error: "AI service error. Please try again." })
       };
     }
 
