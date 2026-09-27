@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Loading... - Psychology Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Psychology Hub</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="class-11.html">Class 11</a></li>
+      <li><a href="class-12.html">Class 12</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+
+  <section class="chapter-header">
+    <p class="breadcrumb"><a id="class-link" href="#">Class</a> / <span id="chapter-number-label">Chapter</span></p>
+    <h1 id="chapter-title">Loading...</h1>
+  </section>
+
+  <section class="chapter-summary">
+    <h2>About This Chapter</h2>
+    <p id="chapter-summary-text"></p>
+    <p class="teaser-note" id="teaser-note"></p>
+  </section>
+
+  <section class="notes-promo">
+    <div class="notes-promo-card">
+      <h3 id="notes-price-heading">📄 Full Chapter Notes</h3>
+      <p>Everything you need for exams, in one clean PDF.</p>
+      <ul class="notes-features">
+        <li>Complete chapter summary, explained simply</li>
+        <li>All key terms and definitions</li>
+        <li>Important diagrams and mnemonics</li>
+        <li>Previous year questions with mark-wise answers</li>
+      </ul>
+      <a href="#" class="btn btn-primary" id="buy-notes-btn">Buy Now</a>
+    </div>
+  </section>
+
+  <section class="quiz-section" id="quiz">
+    <h2>Test Yourself — Free Quiz</h2>
+    <p class="quiz-intro">Quick questions to check your understanding.</p>
+
+    <div class="quiz-container" id="quiz-container">
+      </div>
+
+    <button id="submit-quiz" class="btn btn-primary">Submit Quiz</button>
+
+    <div id="quiz-result" class="quiz-result"></div>
+
+  </section>
+
+  <section class="ai-evaluator">
+    <h2>Practice with AI Feedback</h2>
+    <p class="quiz-intro">Write your answer below and get instant, personalized feedback.</p>
+
+    <div class="evaluator-card">
+      <p class="eval-question" id="ai-question-text"></p>
+      
+      <textarea id="student-answer" placeholder="Type your answer here..." rows="6"></textarea>
+      
+      <button id="submit-answer" class="btn btn-primary">Get AI Feedback</button>
+      
+      <div id="eval-loading" class="eval-loading" style="display: none;">
+        Checking your answer...
+      </div>
+
+      <div id="eval-result" class="eval-result" style="display: none;"></div>
+    </div>
+  </section>
+
+  <script>
+    // Step 1: URL se pata karo kaunsa chapter chahiye
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapterId = urlParams.get('id');
+
+    // Step 2: Us chapter ki JSON file fetch karo
+    fetch(`data/${chapterId}.json`)
+      .then(response => response.json())
+      .then(chapter => {
+
+        // Step 3: Page ko chapter ke data se bharo
+        document.getElementById('page-title').textContent = chapter.title + " - Psychology Hub";
+        document.getElementById('chapter-title').textContent = chapter.title;
+        document.getElementById('chapter-summary-text').textContent = chapter.summary;
+        document.getElementById('teaser-note').textContent = chapter.teaserNote;
+        document.getElementById('notes-price-heading').textContent = "📄 Full Chapter Notes — " + chapter.notesPrice;
+        document.getElementById('buy-notes-btn').textContent = "Buy Now — " + chapter.notesPrice;
+        document.getElementById('ai-question-text').textContent = "Q: " + chapter.aiQuestion;
+
+        document.getElementById('class-link').textContent = chapter.className;
+        document.getElementById('class-link').href = chapter.classLink;
+        document.getElementById('chapter-number-label').textContent = "Chapter " + chapter.chapterNumber;
+
+        // Step 4: Quiz ke saare sawal HTML mein banao
+        const quizContainer = document.getElementById('quiz-container');
+        chapter.quiz.forEach((q, index) => {
+          const questionNum = index + 1;
+          let optionsHTML = "";
+
+          q.options.forEach((opt, optIndex) => {
+            const value = opt.correct ? "correct" : "wrong";
+            optionsHTML += `
+              <label class="option">
+                <input type="radio" name="q${questionNum}" value="${value}"> ${opt.text}
+              </label>
+            `;
+          });
+
+          quizContainer.innerHTML += `
+            <div class="quiz-question" data-question="${questionNum}">
+              <p class="question-text">${q.question}</p>
+              <div class="options">${optionsHTML}</div>
+            </div>
+          `;
+        });
+
+      })
+      .catch(error => {
+        document.getElementById('chapter-title').textContent = "Chapter not found";
+        console.error(error);
+      });
+
+    // Quiz Submit Logic (pehle jaisa hi)
+    document.getElementById('submit-quiz').addEventListener('click', function() {
+      const questions = document.querySelectorAll('.quiz-question');
+      let score = 0;
+      let totalQuestions = questions.length;
+
+      questions.forEach(function(question) {
+        const selected = question.querySelector('input[type="radio"]:checked');
+        if (selected && selected.value === 'correct') {
+          score++;
+        }
+      });
+
+      let feedback = "";
+      if (score === totalQuestions) {
+        feedback = "Perfect score! You know this chapter well.";
+      } else if (score >= totalQuestions / 2) {
+        feedback = "Good effort! Review the topics you missed and try again.";
+      } else {
+        feedback = "No worries — this is just practice. Read the chapter again and give it another shot.";
+      }
+
+      const resultDiv = document.getElementById('quiz-result');
+      resultDiv.innerHTML = `You scored ${score} out of ${totalQuestions}. ${feedback}`;
+      resultDiv.style.color = '#0F766E';
+    });
+
+    // AI Evaluator Logic (pehle jaisa hi, bas ab question dynamic hai)
+    document.getElementById('submit-answer').addEventListener('click', async function() {
+      const answer = document.getElementById('student-answer').value;
+      const aiQuestion = document.getElementById('ai-question-text').textContent.replace('Q: ', '');
+
+      if (answer.trim() === "") {
+        alert("Please write an answer first!");
+        return;
+      }
+
+      const loadingDiv = document.getElementById('eval-loading');
+      const resultDiv = document.getElementById('eval-result');
+
+      loadingDiv.style.display = "block";
+      resultDiv.style.display = "none";
+
+      try {
+        const response = await fetch('/.netlify/functions/evaluate-answer', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question: aiQuestion,
+            studentAnswer: answer
+          })
+        });
+
+        const data = await response.json();
+
+        loadingDiv.style.display = "none";
+        resultDiv.style.display = "block";
+
+        resultDiv.innerHTML = `
+          <div class="eval-score">Score: ${data.score} / 5</div>
+          <div class="eval-feedback">${data.feedback}</div>
+          <div class="eval-missed"><strong>What you could add:</strong> ${data.missedPoints}</div>
+        `;
+
+      } catch (error) {
+        loadingDiv.style.display = "none";
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "Something went wrong. Please try again in a moment.";
+      }
+    });
+  </script>
+
+</body>
+</html>

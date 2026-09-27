@@ -1,0 +1,30 @@
+{
+  "className": "Class 11",
+  "classLink": "class-11.html",
+  "chapterNumber": 2,
+  "title": "Methods of Enquiry in Psychology",
+  "summary": "Psychologists use scientific methods to study behavior and mental processes. This chapter covers how psychological research is conducted, including observation, experiments, and surveys.",
+  "teaserNote": "Want the full summary, all key terms, and exam-ready notes? Get the complete chapter PDF below.",
+  "notesPrice": "₹49",
+  "quiz": [
+    {
+      "question": "1. Which method involves watching behavior without interfering?",
+      "options": [
+        { "text": "Experiment", "correct": false },
+        { "text": "Observation", "correct": true },
+        { "text": "Survey", "correct": false },
+        { "text": "Case study", "correct": false }
+      ]
+    },
+    {
+      "question": "2. A case study is best used to study:",
+      "options": [
+        { "text": "Large populations quickly", "correct": false },
+        { "text": "A single individual in depth", "correct": true },
+        { "text": "Only animal behavior", "correct": false },
+        { "text": "Only children", "correct": false }
+      ]
+    }
+  ],
+  "aiQuestion": "Describe any two methods used to study behavior in psychology. (5 marks)"
+}

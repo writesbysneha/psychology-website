@@ -1,0 +1,39 @@
+{
+  "className": "Class 11",
+  "classLink": "class-11.html",
+  "chapterNumber": 1,
+  "title": "What is Psychology?",
+  "summary": "Psychology is the scientific study of behavior and mental processes. This chapter introduces psychology as a discipline — its history, major branches, and how psychologists study human behavior.",
+  "teaserNote": "Want the full summary, all key terms, and exam-ready notes? Get the complete chapter PDF below.",
+  "notesPrice": "₹49",
+  "quiz": [
+    {
+      "question": "1. Psychology is best defined as the scientific study of:",
+      "options": [
+        { "text": "Only the brain's biology", "correct": false },
+        { "text": "Behavior and mental processes", "correct": true },
+        { "text": "Only mental illness", "correct": false },
+        { "text": "Only dreams and sleep", "correct": false }
+      ]
+    },
+    {
+      "question": "2. \"Introspection\" means:",
+      "options": [
+        { "text": "Studying other people's behavior", "correct": false },
+        { "text": "Looking inward at one's own thoughts and feelings", "correct": true },
+        { "text": "Conducting a lab experiment", "correct": false },
+        { "text": "Measuring brain activity", "correct": false }
+      ]
+    },
+    {
+      "question": "3. Which of these is an example of \"behavior\"?",
+      "options": [
+        { "text": "Feeling nervous silently", "correct": false },
+        { "text": "Smiling when greeted", "correct": true },
+        { "text": "A private thought", "correct": false },
+        { "text": "A memory from childhood", "correct": false }
+      ]
+    }
+  ],
+  "aiQuestion": "Explain what psychology means as a scientific discipline. (5 marks)"
+}
