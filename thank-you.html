@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - Psychology Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Psychology Hub</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="class-11.html">Class 11</a></li>
+      <li><a href="class-12.html">Class 12</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+
+  <section class="thank-you-section">
+
+    <div class="thank-you-card" id="loading-card">
+      <div class="spinner"></div>
+      <p>Verifying your payment...</p>
+    </div>
+
+    <div class="thank-you-card" id="success-card" style="display: none;">
+      <div class="success-icon">✅</div>
+      <h1>Thank You for Your Purchase!</h1>
+      <p>Your payment was successful. Click below to download your notes.</p>
+      <a href="#" id="download-link" class="btn btn-primary">Download Your PDF</a>
+      <p class="thank-you-note">A copy of this link has also been sent to your email (if provided during checkout).</p>
+    </div>
+
+  </section>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapterId = urlParams.get('id');
+
+    const downloadLinks = {
+      "class-11-chapter-1": "https://drive.google.com/your-chapter-1-link-here",
+      "class-11-chapter-2": "https://drive.google.com/your-chapter-2-link-here",
+      "class-11-bundle": "https://drive.google.com/your-bundle-link-here"
+    };
+
+    const link = downloadLinks[chapterId];
+
+    setTimeout(function() {
+      document.getElementById('loading-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+
+      if (link) {
+        document.getElementById('download-link').href = link;
+      } else {
+        document.getElementById('download-link').textContent = "Link not found — contact support";
+      }
+    }, 1500);
+  </script>
+
+</body>
+</html>
